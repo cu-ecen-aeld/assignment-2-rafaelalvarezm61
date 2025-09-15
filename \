@@ -1,0 +1,28 @@
+#!/bin/bash
+echo "inicia el finder "
+filesdir=$1
+searchstr=$2
+
+echo filesdir
+echo $filesdir
+echo searchstr
+echo $searchstr
+
+if [ "$#" -lt 2 ] ; then 
+	echo "Error: Missinf required parameters"
+	echo "Usage: $0 <parameter1> <parameter2>"
+	exit 1
+fi
+if [ ! -d "$filesdir" ] ; then
+	echo "Error '$filesdir' is not a directory."
+	exit 1
+fi 
+X1=$(grep  -rl $searchstr $filesdir | wc -l)
+X=$((X1 / 2)) 
+Y1= $(grep -rl $searchstr $filesdir | wc -l)
+echo " Y1= $Y1"
+Y= $((Y1 /2))
+#
+
+echo  "the number of files is $X and the number of matching lines are $Y"
+exit  0
