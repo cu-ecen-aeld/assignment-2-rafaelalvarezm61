@@ -34,7 +34,7 @@ echo "Writing ${NUMFILES} files containing string ${WRITESTR} to ${WRITEDIR}"
 # create $WRITEDIR if not assignment1
 assignment=`cat ../conf/assignment.txt`
 
-if [ $assignment = 'assignment1' ]
+if [ $assignment = 'assignment2' ]
 then
 	mkdir -p "$WRITEDIR"
 	echo "creo el directorio"
@@ -49,17 +49,27 @@ then
 	fi
 fi
 #echo "Removing the old writer utility and compiling as a native application"
-#make clean
-#make
+make clean
+make
 
 for i in $( seq 1 $NUMFILES)
 do
-	./writer.sh "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	echo "empezo el writer"
+#
+#	./writer.sh "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	echo " WRITESDIR = $WRITEDIR "
+	echo " WRITESTR = $WRITESTR "
+	"./writer" "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	C_PROGRAM_RETURN_CODE=$?
+	echo "C prgram finished with exit code : $C_PROGRAM_RETURN_CODE"
+	echo "termino el writer"
 done
 
 OUTPUTSTRING=$(./finder.sh "$WRITEDIR" "$WRITESTR")
 
 # remove temporary directories
+
+
 
 rm -rf /tmp/aeld-data
 
